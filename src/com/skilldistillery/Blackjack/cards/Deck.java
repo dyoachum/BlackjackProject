@@ -20,7 +20,15 @@ public class Deck {
 	    return deck;
 	  }
 	  
-	  public int checkDeckSize() {
+	  public List<Card> getCards() {
+		return cards;
+	}
+
+	public void setCards(List<Card> cards) {
+		this.cards = cards;
+	}
+
+	public int checkDeckSize() {
 	    return cards.size();
 	  }
 	  
