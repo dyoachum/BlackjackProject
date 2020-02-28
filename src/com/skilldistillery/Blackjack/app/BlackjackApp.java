@@ -26,7 +26,7 @@ public class BlackjackApp {
 //			
 //	}
 
-	private void startGame() {
+	public void startGame() {
 		// game intro
 		System.out.println("Welcome to Blackjack!");
 		System.out.println("Enter 1 to play a quick game.");
@@ -58,8 +58,8 @@ public class BlackjackApp {
 			System.out.println("Dealer has Blackjack!");
 
 		} else if (player.getHand().isBlackjack()) {
-			System.out.println("Player has Blackjack!!!");
 			bjDealerHit();
+//			System.out.println("Player has Blackjack!!!");
 		} else {
 			hitOrStay();
 
@@ -95,33 +95,48 @@ public class BlackjackApp {
 				break;
 			case 2:
 				System.out.println("You're staying with " + player.getHand().getHandValue());
-				if (player.getHand().getHandValue() <= 21 && bjDealer.getHandValue() < 17) {
+				if (player.getHand().getHandValue() < bjDealer.getHandValue() || bjDealer.getHandValue() < 17) {
+					System.out.println(bjDealer.getHandValue());
 					System.out.println("Dealer has " + bjDealer.getHand());
 					bjDealerHit();
-//					bjDealer.getHand().isBust();
+					winnerCheck();
+				}
+				if (player.getHand().getHandValue() > bjDealer.getHandValue()) {
+					System.out.println("Dealer has " + bjDealer.getHand());
+					bjDealerHit();
+					bjDealer.getHandValue();
 					winnerCheck();
 
-				}
-				if (player.getHand().getHandValue() == bjDealer.getHand().getHandValue()) {
-					System.out.println("Push");
-					bjDealer.getHandValue();
+				} 
+				if (player.getHand().getHandValue() > bjDealer.getHandValue() && bjDealer.getHandValue() > 17) {
+					bjDealerHit();
+					System.out.println(bjDealer.getHandValue());
+					winnerCheck();
+
+				} 
+				if (player.getHand().getHandValue() == bjDealer.getHandValue()
+						&& bjDealer.getHand().getHandValue() >= 17) {
+					System.out.println(bjDealer.getHandValue());
+					
+					winnerCheck();
 				}
 			}
 		}
 	}
 
-	private void bjDealerHit() {
+	public void bjDealerHit() {
 		while (bjDealer.getHandValue() < 17) {
+
 			bjDealer.hitMe(deck.dealCard());
-			System.out.println("Dealer has " + bjDealer.hand);
+			System.out.println("Dealer has " + bjDealer.getHand());
 			System.out.println(bjDealer.getHandValue());
 			if (bjDealer.getHand().isBlackjack()) {
 				System.out.println("Dealer has Blackjack!!!");
 
-			} else if (bjDealer.getHandValue() >= 17) {
+			} else if (bjDealer.getHandValue() > 21) {
 				if (bjDealer.getHand().isBust()) {
 					System.out.println("Dealer busts");
-//				checkWin();
+					winnerCheck();
 
 				}
 
@@ -132,12 +147,13 @@ public class BlackjackApp {
 
 	}
 
-	private int playerHit() {
+	public int playerHit() {
 		player.hitMe(deck.dealCard());
 		System.out.println(player.getHand());
 		System.out.println(((BlackjackPlayer) player).getHandValue());
 		if (player.getHand().isBlackjack()) {
-			System.out.println("Player has Blackjack!!!");
+			bjDealerHit();
+//			System.out.println("Player has Blackjack!!!");
 			return 2;
 		} else if (player.getHand().isBust()) {
 			System.out.println("Player busts");
@@ -146,14 +162,12 @@ public class BlackjackApp {
 		return 0;
 	}
 
-	private void winnerCheck() {
-		if (bjDealer.getHand().getHandValue() > player.getHand().getHandValue()
-				&& bjDealer.getHand().getHandValue() <= 21) {
+	public void winnerCheck() {
+		if (bjDealer.getHandValue() > player.getHand().getHandValue() && bjDealer.getHand().getHandValue() <= 21) {
 			System.out.println("Dealer wins.");
-		} else if (bjDealer.getHand().getHandValue() < player.getHand().getHandValue()
-				&& player.getHand().getHandValue() <= 21) {
+		} else if (bjDealer.getHandValue() < player.getHand().getHandValue() && player.getHand().getHandValue() <= 21) {
 			System.out.println("Player wins.");
-		} else if (bjDealer.getHand().getHandValue() == player.getHand().getHandValue())
+		} else if (bjDealer.getHandValue() == player.getHand().getHandValue())
 			System.out.println("It's a Push Game. No winners. Better Luck next time");
 	}
 }
