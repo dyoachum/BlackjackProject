@@ -6,11 +6,11 @@ import com.skilldistillery.Blackjack.cards.Card;
 
 public abstract class Hand {
 	
-	protected List<Card> cards;
+	public List<Card> cards;
 	
-	public Hand(List<Card> cards) {
-		cards = new ArrayList<Card>();
-		this.cards = cards;
+	public Hand() {
+		cards = new ArrayList<>();
+		
 	}
 	public void addCard(Card card) {
 		cards.add(card);
@@ -26,15 +26,16 @@ public abstract class Hand {
 	public List<Card> getCards(){
 		return cards;
 	}
-	
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Hand [cards=");
-		builder.append(cards);
-		builder.append("]");
-		return builder.toString();
+		return "" + cards;
 	}
+	public abstract boolean isBlackjack();
+	
+	public abstract boolean isBust();
+	
+	
+	
 	
 	
 

@@ -1,26 +1,23 @@
 package com.skilldistillery.Blackjack.Players;
 
 import com.skilldistillery.Blackjack.Hand.Hand;
+import com.skilldistillery.Blackjack.cards.Card;
 
-public class Player {
-	private String name;
+public abstract class Player {
+	
 
-//	private Hand hand;
-	public Player() {
+	public Hand hand;
 
+	public Hand getHand() {
+		return hand;
+	}
+	public void hitMe(Card card) {
+		hand.addCard(card);
+	}
+	public void setHand(Hand hand) {
+		this.hand = hand;
 	}
 
-	@Override
-	public String toString() {
-		return "Player [name=" + name + "]";
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
+	
 
 }

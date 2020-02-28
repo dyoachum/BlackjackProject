@@ -4,6 +4,10 @@ public class Card {
 	private Rank rank;
 	private Suit suit;
 	
+	public Rank getRank() {
+		return rank;
+	}
+	
 	public Card(Rank rank, Suit suit) {
 		this.rank = rank;
 		this.suit = suit;
@@ -14,6 +18,10 @@ public class Card {
 	
 	
 	
+	@Override
+	public String toString() {
+		return  rank + " of " + suit;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
